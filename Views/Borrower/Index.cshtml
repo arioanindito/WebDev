@@ -1,0 +1,65 @@
+﻿@model IEnumerable<DSS_MVC.Models.Borrower>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Member List</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DOB)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RegistrationDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Statuses)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DOB)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RegistrationDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Statuses.StatusName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.BorrowerId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.BorrowerId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.BorrowerId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
