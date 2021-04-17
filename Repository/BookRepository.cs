@@ -22,11 +22,11 @@ namespace DSS_MVC.Repository
 
         public IEnumerable<Book> GetBooks => db.Books;
 
-        public void Add(Book _Book, IFormFile photo)
+        public void Add(Book book, IFormFile photo)
         {
-            if (_Book.BookId == 0)
+            if (book.BookId == 0)
             {
-                db.Books.Add(_Book);
+                db.Books.Add(book);
                 db.SaveChanges();
 
                 if (photo != null)
@@ -40,7 +40,7 @@ namespace DSS_MVC.Repository
                     //    newImageIndex = lastImage.Index++;
                     //}
 
-                    string directoryPath = Path.Combine(imagesPath, _Book.BookId.ToString());
+                    string directoryPath = Path.Combine(imagesPath, book.BookId.ToString());
                     if (!Directory.Exists(directoryPath))
                     {
                         Directory.CreateDirectory(directoryPath);
@@ -57,10 +57,10 @@ namespace DSS_MVC.Repository
                         }
 
                         Image image = new Image();
-                        image.BookId = _Book.BookId;
+                        image.BookId = book.BookId;
                         image.Index = newImageIndex;
                         image.FileName = fileName;
-                        image.Name = _Book.BookName;
+                        image.Name = book.BookName;
 
                         //db.Books.Add(_Book);
                         db.Images.Add(image);
@@ -81,11 +81,10 @@ namespace DSS_MVC.Repository
         }
             else
             {
-                var dbEntity = db.Books.Find(_Book.BookId);
-                dbEntity.BookName = _Book.BookName;
-                dbEntity.ISBN = _Book.ISBN;
-
-
+                var dbEntity = db.Books.Find(book.BookId);
+                dbEntity.BookName = book.BookName;
+                dbEntity.ISBN = book.ISBN;
+                //dbEntity.Images = book.Images;
 
                 db.SaveChanges();
             }
