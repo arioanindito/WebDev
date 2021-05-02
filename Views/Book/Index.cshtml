@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Book List</h1>
+<h1>Books Overview</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -20,6 +20,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Images)
+            </th>
+            <th>
+
             </th>
         </tr>
     </thead>
@@ -40,7 +43,6 @@
                 else
                 {
                     <img src="/images/notfound.png" alt="image not found" width="50" height="50">
-
                 }
             </td>
             <td>

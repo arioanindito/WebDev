@@ -24,7 +24,14 @@
             @Html.DisplayFor(model => model.ISBN)
         </dd>
         <dt class="col-sm-2">
-            <img src="/Images/Get?bookId=@Model.BookId&fileName=@Model.Images.FirstOrDefault().FileName" alt="@Model.Images" width="300" height="300">
+            @if (Model.Images.Any())
+            {
+                <img src="/Images/Get?bookId=@Model.BookId&fileName=@Model.Images.FirstOrDefault().FileName" alt="@Model.Images" width="300" height="300">
+            }
+            else
+            {
+                <img src="/images/notfound.png" alt="image not found" width="50" height="50">
+            }
         </dt>
     </dl>
     

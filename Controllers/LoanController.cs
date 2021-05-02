@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace DSS_MVC.Controllers
 {
-    [Authorize]
     public class LoanController : Controller
     {
         private readonly ILoan _Loan;
@@ -25,6 +24,7 @@ namespace DSS_MVC.Controllers
         {
             return View(_Loan.GetLoans);
         }
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Create()
         {
@@ -42,6 +42,7 @@ namespace DSS_MVC.Controllers
             }
             return View(model);
         }
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Delete(int? ID)
         {
@@ -61,6 +62,7 @@ namespace DSS_MVC.Controllers
             _Loan.Remove(ID);
             return RedirectToAction("Index");
         }
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Edit(int? ID)
         {

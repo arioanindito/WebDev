@@ -26,7 +26,7 @@ namespace DSS_MVC.Controllers
         {
             return View(_Borrower.GetBorrowers);
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, User")]
         [HttpGet]
         public IActionResult Create()
         {
@@ -43,7 +43,7 @@ namespace DSS_MVC.Controllers
             }
             return View(model);
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, User")]
         [HttpGet]
         public IActionResult Delete(int? ID)
         {
@@ -56,12 +56,13 @@ namespace DSS_MVC.Controllers
             _Borrower.Remove(ID);
             return RedirectToAction("Index");
         }
+        [Authorize(Roles = "Admin, User")]
         [HttpGet]
         public IActionResult Details(int? ID)
         {
             return View(_Borrower.GetBorrower(ID));
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, User")]
         [HttpGet]
         public IActionResult Edit(int? ID)
         {
