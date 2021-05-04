@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DSS_MVC.Models
+namespace WebDev.Models
 {
     public class Image
     {
@@ -14,7 +14,7 @@ namespace DSS_MVC.Models
         public string Description { get; set; }
         public int Index { get; set; }
 
-        public int BookId { get; set; }
-        public Book Book { get; set; }
+        public int PostId { get; set; }
+        public Post Post { get; set; }
     }
 }

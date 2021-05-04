@@ -1,6 +1,6 @@
 using System;
 
-namespace DSS_MVC.Models
+namespace WebDev.Models
 {
     public class ErrorViewModel
     {

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<WebDev.Models.Post>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Posts Overview</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PostName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Images)
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (Post Post in Model) {
+        <tr>
+            <td>
+                @Post.PostName
+            </td>
+            <td>
+                @Post.Comment
+            </td>
+            <td>
+                @if (Post.Images.Any())
+                {
+                    <a asp-action="Details" asp-route-id="@Post.PostId"><img src="Images/Get?PostId=@Post.PostId&fileName=@Post.Images.First().FileName" alt="@Post.Images.First().Name" width="50" height="50" /></a>
+                }
+                else
+                {
+                    <img src="/images/notfound.png" alt="image not found" width="50" height="50">
+                }
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@Post.PostId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@Post.PostId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@Post.PostId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

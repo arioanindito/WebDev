@@ -1,6 +1,6 @@
-﻿using DSS_MVC.Models;
-using DSS_MVC.Repository;
-using DSS_MVC.Services;
+﻿using WebDev.Models;
+using WebDev.Repository;
+using WebDev.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,20 +10,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DSS_MVC.Controllers
+namespace WebDev.Controllers
 {
-    public class BookController : Controller
+    public class PostController : Controller
     {
-        private readonly IBook _book;
+        private readonly IPost _Post;
         private DBContext _db;
-        public BookController(IBook book,DBContext db)
+        public PostController(IPost Post,DBContext db)
         {
-            _book = book;
+            _Post = Post;
             _db = db;
         }
         public IActionResult Index()
         {
-            return View(_db.Books.Include(a => a.Images).ToList());
+            return View(_db.Posts.Include(a => a.Images).ToList());
         }
         //[Authorize(Roles = "Admin")]
         [HttpGet]
@@ -32,11 +32,11 @@ namespace DSS_MVC.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Book model, IFormFile photo)
+        public IActionResult Create(Post model, IFormFile photo)
         {
             if (ModelState.IsValid)
             {
-                _book.Add(model, photo);
+                _Post.Add(model, photo);
                 return RedirectToAction("Index");
             }
             return View(model);
@@ -51,36 +51,36 @@ namespace DSS_MVC.Controllers
             }
             else
             {
-                Book model = _book.GetBook(ID);
+                Post model = _Post.GetPost(ID);
                 return View(model);
             }
         }
         [HttpPost, ActionName("Delete")]
         public IActionResult DeleteConfirm(int? ID)
         {
-            _book.Remove(ID);
+            _Post.Remove(ID);
             return RedirectToAction("Index");
         }
         //[Authorize(Roles = "Admin, User")]
         [HttpGet]
         public IActionResult Details(int? ID)
         {
-            return View(_book.GetBook(ID));
+            return View(_Post.GetPost(ID));
         }
         [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Edit(int? ID)
         {
-            var model = _book.GetBook(ID);
+            var model = _Post.GetPost(ID);
             return View(model);
             //return View(model);
         }
         [HttpPost]
-        public IActionResult Edit(Book model, IFormFile photo)
+        public IActionResult Edit(Post model, IFormFile photo)
         {
             if (ModelState.IsValid)
             {
-                _book.Add(model, photo);
+                _Post.Add(model, photo);
                 return RedirectToAction("Index");
             }
             return View(model);

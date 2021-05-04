@@ -1,5 +1,5 @@
-using DSS_MVC.Repository;
-using DSS_MVC.Services;
+using WebDev.Repository;
+using WebDev.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -14,7 +14,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DSS_MVC
+namespace WebDev
 {
     public class Startup
     {
@@ -31,7 +31,7 @@ namespace DSS_MVC
             services.AddDbContext<DBContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("ConnectionStr")));
             services.AddControllersWithViews();
-            services.AddTransient<IBook, BookRepository>();
+            services.AddTransient<IPost, PostRepository>();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
             {
                 options.LoginPath = "/accounts/login";

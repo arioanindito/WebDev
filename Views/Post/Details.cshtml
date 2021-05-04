@@ -1,4 +1,4 @@
-﻿@model DSS_MVC.Models.Book
+﻿@model WebDev.Models.Post
 
 @{
     ViewData["Title"] = "Details";
@@ -7,27 +7,27 @@
 <h1>Details</h1>
 
 <div>
-    <h4>Book</h4>
+    <h4>Post</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.BookName)
+            @Html.DisplayNameFor(model => model.PostName)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.BookName)
+            @Html.DisplayFor(model => model.PostName)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ISBN)
+            @Html.DisplayNameFor(model => model.Comment)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ISBN)
+            @Html.DisplayFor(model => model.Comment)
         </dd>
         <dt class="col-sm-2">
         </dt>
         <dd class="col-sm-10">
         </dd>
         <dt class="col-sm-2">
-            <img src="/Images/Get?bookId=@Model.BookId&fileName=@Model.Images.FirstOrDefault().FileName" alt="@Model.Images" width="300" height="300">
+            <img src="/Images/Get?PostId=@Model.PostId&fileName=@Model.Images.FirstOrDefault().FileName" alt="@Model.Images" width="300" height="300">
         </dt>
         <dd class="col-sm-10">
         </dd>
@@ -38,6 +38,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.BookId">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.PostId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

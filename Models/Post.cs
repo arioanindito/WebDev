@@ -5,23 +5,23 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DSS_MVC.Models
+namespace WebDev.Models
 {
-    public class Book
+    public class Post
     {
-        public Book()
+        public Post()
         {
             Images = new List<Image>();
         }
         [Key]
-        public int BookId { get; set; }
-        [DisplayName("Book Name")]
-        [Required(ErrorMessage = "Book Name is Required!")]
+        public int PostId { get; set; }
+        [DisplayName("Post Name")]
+        [Required(ErrorMessage = "Post Name is Required!")]
         [StringLength(50)]
-        public string BookName { get; set; }
-        [Required(ErrorMessage = "ISBN is Required!")]
+        public string PostName { get; set; }
+        [Required(ErrorMessage = "Comment is Required!")]
         [StringLength(50)]
-        public string ISBN { get; set; }
+        public string Comment { get; set; }
 
         public ICollection<Image> Images { get; set; }
     }

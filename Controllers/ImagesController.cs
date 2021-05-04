@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DSS_MVC.Controllers
+namespace WebDev.Controllers
 {
     public class ImagesController : Controller
     {
@@ -20,10 +20,10 @@ namespace DSS_MVC.Controllers
             _notFoundImageLocation = Path.Combine(environment.WebRootPath, "Images", "NotFound.png");
         }
 
-        public IActionResult Get(int bookId, string fileName)
+        public IActionResult Get(int PostId, string fileName)
         {
-            string imagesLocation = _configuration.GetValue<string>("PaintingPhotosLocation");
-            string imagePath = Path.Combine(imagesLocation, bookId.ToString(), fileName);
+            string imagesLocation = _configuration.GetValue<string>("PostPhotoLocation");
+            string imagePath = Path.Combine(imagesLocation, PostId.ToString(), fileName);
 
             FileStream image;
             if (System.IO.File.Exists(imagePath))

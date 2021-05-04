@@ -1,11 +1,11 @@
-﻿using DSS_MVC.Models;
+﻿using WebDev.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DSS_MVC.Repository
+namespace WebDev.Repository
 {
     public class DBContext:DbContext
     {
@@ -13,7 +13,7 @@ namespace DSS_MVC.Repository
         {
 
         }
-        public DbSet<Book> Books { get; set; }
+        public DbSet<Post> Posts { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<User> Users { get; set; }
     }

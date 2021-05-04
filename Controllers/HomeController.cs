@@ -1,4 +1,4 @@
-﻿using DSS_MVC.Models;
+﻿using WebDev.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DSS_MVC.Controllers
+namespace WebDev.Controllers
 {
     public class HomeController : Controller
     {

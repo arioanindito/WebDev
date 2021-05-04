@@ -1,5 +1,5 @@
-﻿using DSS_MVC.Models;
-using DSS_MVC.Repository;
+﻿using WebDev.Models;
+using WebDev.Repository;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +10,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace DSS_MVC.Controllers
+namespace WebDev.Controllers
 {
     public class AccountsController : Controller
     {

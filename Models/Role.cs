@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DSS_MVC.Models
+namespace WebDev.Models
 {
     public class Role
     {

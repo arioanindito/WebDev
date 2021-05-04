@@ -1,5 +1,5 @@
-﻿using DSS_MVC.Models;
-using DSS_MVC.Services;
+﻿using WebDev.Models;
+using WebDev.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -8,34 +8,34 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace DSS_MVC.Repository
+namespace WebDev.Repository
 {
-    public class BookRepository : IBook
+    public class PostRepository : IPost
     {
         private DBContext db;
         private IConfiguration _configuration;
-        public BookRepository(DBContext _db, IConfiguration configuration)
+        public PostRepository(DBContext _db, IConfiguration configuration)
         {
             db = _db;
             _configuration = configuration;
         }
 
-        public IEnumerable<Book> GetBooks => db.Books;
+        public IEnumerable<Post> GetPosts => db.Posts;
 
-        public void Add(Book book, IFormFile photo)
+        public void Add(Post Post, IFormFile photo)
         {
-            if (book.BookId == 0)
+            if (Post.PostId == 0)
             {
-                db.Books.Add(book);
+                db.Posts.Add(Post);
                 db.SaveChanges();
 
                 if (photo != null)
                 {
-                    string imagesPath = _configuration.GetValue<string>("PaintingPhotosLocation");
+                    string imagesPath = _configuration.GetValue<string>("PostPhotoLocation");
 
                     int newImageIndex = 0;
 
-                    string directoryPath = Path.Combine(imagesPath, book.BookId.ToString());
+                    string directoryPath = Path.Combine(imagesPath, Post.PostId.ToString());
                     if (!Directory.Exists(directoryPath))
                     {
                         Directory.CreateDirectory(directoryPath);
@@ -50,10 +50,10 @@ namespace DSS_MVC.Repository
                     }
 
                     Image image = new Image();
-                    image.BookId = book.BookId;
+                    image.PostId = Post.PostId;
                     image.Index = newImageIndex;
                     image.FileName = fileName;
-                    image.Name = book.BookName;
+                    image.Name = Post.PostName;
                     db.Images.Add(image);
                     
                     db.SaveChanges();
@@ -61,19 +61,19 @@ namespace DSS_MVC.Repository
             }
             else
             {
-                var dbEntity = db.Books.Find(book.BookId);
-                dbEntity.BookName = book.BookName;
-                dbEntity.ISBN = book.ISBN;
-                //dbEntity.Images = book.Images;
+                var dbEntity = db.Posts.Find(Post.PostId);
+                dbEntity.PostName = Post.PostName;
+                dbEntity.Comment = Post.Comment;
+                //dbEntity.Images = Post.Images;
                 db.SaveChanges();
 
                 //if (photo != null)
                 //{
-                    //string imagesPath = _configuration.GetValue<string>("PaintingPhotosLocation");
+                    //string imagesPath = _configuration.GetValue<string>("PostPhotoLocation");
 
                     //int newImageIndex = 0;
 
-                    //string directoryPath = Path.Combine(imagesPath, book.BookId.ToString());
+                    //string directoryPath = Path.Combine(imagesPath, Post.PostId.ToString());
                     //if (!Directory.Exists(directoryPath))
                     //{
                     //    Directory.CreateDirectory(directoryPath);
@@ -88,27 +88,27 @@ namespace DSS_MVC.Repository
                     //}
 
                     //Image image = new Image();
-                    //image.BookId = book.BookId;
+                    //image.PostId = Post.PostId;
                     //image.Index = newImageIndex;
                     //image.FileName = fileName;
-                    //image.Name = book.BookName;
+                    //image.Name = Post.PostName;
                     //db.Images.Add(image);
 
                     //db.SaveChanges();
                 //}
             }
         }
-        public Book GetBook(int? ID)
+        public Post GetPost(int? ID)
         {
-            return db.Books
+            return db.Posts
                 .Include(s => s.Images)
-                .SingleOrDefault(a => a.BookId == ID);
+                .SingleOrDefault(a => a.PostId == ID);
         }
 
         public void Remove(int? ID)
         {
-            Book dbEntity = db.Books.Find(ID);
-            db.Books.Remove(dbEntity);
+            Post dbEntity = db.Posts.Find(ID);
+            db.Posts.Remove(dbEntity);
             db.SaveChanges();
         }
     }
