@@ -31,10 +31,7 @@ namespace DSS_MVC
             services.AddDbContext<DBContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("ConnectionStr")));
             services.AddControllersWithViews();
-            services.AddTransient<IBorrower, BorrowerRepository>();
             services.AddTransient<IBook, BookRepository>();
-            services.AddTransient<ILoan, LoanRepository>();
-            services.AddTransient<IStatus, StatusRepository>();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
             {
                 options.LoginPath = "/accounts/login";

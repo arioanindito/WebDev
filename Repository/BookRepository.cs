@@ -100,8 +100,7 @@ namespace DSS_MVC.Repository
         }
         public Book GetBook(int? ID)
         {
-            return db.Books.Include(e => e.Loans)
-                .ThenInclude(a => a.Borrowers)
+            return db.Books
                 .Include(s => s.Images)
                 .SingleOrDefault(a => a.BookId == ID);
         }

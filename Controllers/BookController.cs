@@ -25,7 +25,7 @@ namespace DSS_MVC.Controllers
         {
             return View(_db.Books.Include(a => a.Images).ToList());
         }
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Create()
         {
@@ -41,7 +41,7 @@ namespace DSS_MVC.Controllers
             }
             return View(model);
         }
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Delete(int? ID)
         {
@@ -61,7 +61,7 @@ namespace DSS_MVC.Controllers
             _book.Remove(ID);
             return RedirectToAction("Index");
         }
-        [Authorize(Roles = "Admin, User")]
+        //[Authorize(Roles = "Admin, User")]
         [HttpGet]
         public IActionResult Details(int? ID)
         {

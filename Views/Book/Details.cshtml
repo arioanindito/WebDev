@@ -35,49 +35,6 @@
         </dt>
         <dd class="col-sm-10">
         </dd>
-        <!--<dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.Loans)
-        </dt> -->
-        <dd class="col-sm-10">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>
-                            Borrowers
-                        </th>
-                        <th>
-                            Start Date
-                        </th>
-                        <th>
-                            End Date
-                        </th>
-                        <th>
-                            Book Condition
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.Loans)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Borrowers.FirstName)
-                                @Html.DisplayFor(modelItem => item.Borrowers.LastName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.StartDate)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.EndDate)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.BookCondition)
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </dd>
     </dl>
 </div>
 <div>

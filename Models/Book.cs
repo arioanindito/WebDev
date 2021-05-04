@@ -24,6 +24,5 @@ namespace DSS_MVC.Models
         public string ISBN { get; set; }
 
         public ICollection<Image> Images { get; set; }
-        public ICollection<Loan> Loans { get; set; }
     }
 }

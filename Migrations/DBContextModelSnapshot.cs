@@ -214,7 +214,7 @@ namespace DSS_MVC.Migrations
             modelBuilder.Entity("DSS_MVC.Models.Loan", b =>
                 {
                     b.HasOne("DSS_MVC.Models.Book", "Books")
-                        .WithMany("Loans")
+                        .WithMany()
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -244,8 +244,6 @@ namespace DSS_MVC.Migrations
             modelBuilder.Entity("DSS_MVC.Models.Book", b =>
                 {
                     b.Navigation("Images");
-
-                    b.Navigation("Loans");
                 });
 
             modelBuilder.Entity("DSS_MVC.Models.Borrower", b =>

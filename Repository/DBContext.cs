@@ -13,11 +13,7 @@ namespace DSS_MVC.Repository
         {
 
         }
-
-        public DbSet<Borrower> Borrowers { get; set; }
-        public DbSet<Status> Statuses { get; set; }
         public DbSet<Book> Books { get; set; }
-        public DbSet<Loan> Loans { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<User> Users { get; set; }
     }

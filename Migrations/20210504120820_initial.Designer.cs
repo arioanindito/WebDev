@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DSS_MVC.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20210417035048_initial")]
+    [Migration("20210504120820_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -137,6 +137,21 @@ namespace DSS_MVC.Migrations
                     b.ToTable("Loans");
                 });
 
+            modelBuilder.Entity("DSS_MVC.Models.Role", b =>
+                {
+                    b.Property<int>("RoleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("RoleName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RoleId");
+
+                    b.ToTable("Role");
+                });
+
             modelBuilder.Entity("DSS_MVC.Models.Status", b =>
                 {
                     b.Property<int>("StatusId")
@@ -151,6 +166,29 @@ namespace DSS_MVC.Migrations
                     b.HasKey("StatusId");
 
                     b.ToTable("Statuses");
+                });
+
+            modelBuilder.Entity("DSS_MVC.Models.User", b =>
+                {
+                    b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("DSS_MVC.Models.Borrower", b =>
@@ -178,7 +216,7 @@ namespace DSS_MVC.Migrations
             modelBuilder.Entity("DSS_MVC.Models.Loan", b =>
                 {
                     b.HasOne("DSS_MVC.Models.Book", "Books")
-                        .WithMany("Loans")
+                        .WithMany()
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -194,16 +232,30 @@ namespace DSS_MVC.Migrations
                     b.Navigation("Borrowers");
                 });
 
+            modelBuilder.Entity("DSS_MVC.Models.User", b =>
+                {
+                    b.HasOne("DSS_MVC.Models.Role", "Role")
+                        .WithMany("Users")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+                });
+
             modelBuilder.Entity("DSS_MVC.Models.Book", b =>
                 {
                     b.Navigation("Images");
-
-                    b.Navigation("Loans");
                 });
 
             modelBuilder.Entity("DSS_MVC.Models.Borrower", b =>
                 {
                     b.Navigation("Loans");
+                });
+
+            modelBuilder.Entity("DSS_MVC.Models.Role", b =>
+                {
+                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }
