@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace WebDev
 {
@@ -37,6 +38,8 @@ namespace WebDev
                 options.LoginPath = "/accounts/login";
                 options.AccessDeniedPath = "/accounts/login";
             });
+            //services.AddIdentity<IdentityUser, IdentityRole>();
+            services.AddHttpContextAccessor();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

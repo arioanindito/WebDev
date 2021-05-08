@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace WebDev.Models
 {
-    public class Image
+    public class PostIndexModel
     {
-        public int ImageId { get; set; }
-        public string FileName { get; set; }
-        public int Index { get; set; }
-
         public int PostId { get; set; }
-        public Post Post { get; set; }
+        [Display(Name = "Post Name")]
+        public string Comment { get; set; }
+        [Display(Name = "Post Creator")]
+        public string UserName { get; set; }
     }
 }

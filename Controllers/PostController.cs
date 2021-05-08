@@ -9,21 +9,30 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace WebDev.Controllers
 {
     public class PostController : Controller
     {
+        //private readonly UserManager<User> _manager;
+        //private readonly UserManager<IdentityUser> _userManager;
         private readonly IPost _Post;
         private DBContext _db;
-        public PostController(IPost Post,DBContext db)
+        public PostController(IPost Post, DBContext db)
+        //UserManager<User> manager
         {
             _Post = Post;
             _db = db;
+            //_manager = manager;
+            //_userManager = userManager;
         }
         public IActionResult Index()
         {
-            return View(_db.Posts.Include(a => a.Images).ToList());
+            //ViewBag.username = _manager.GetUserName(HttpContext.User);
+            return View(_db.Posts.Include(a => a.Images)
+                //.Include(b => b.User)
+                .ToList());
         }
         //[Authorize(Roles = "Admin")]
         [HttpGet]
@@ -36,6 +45,7 @@ namespace WebDev.Controllers
         {
             if (ModelState.IsValid)
             {
+                //var user = await _userManager.GetUserAsync(HttpContext.User);
                 _Post.Add(model, photo);
                 return RedirectToAction("Index");
             }
@@ -80,6 +90,7 @@ namespace WebDev.Controllers
         {
             if (ModelState.IsValid)
             {
+                //var user = await _userManager.GetUserAsync(HttpContext.User);
                 _Post.Add(model, photo);
                 return RedirectToAction("Index");
             }

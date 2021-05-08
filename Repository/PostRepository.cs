@@ -26,6 +26,8 @@ namespace WebDev.Repository
         {
             if (Post.PostId == 0)
             {
+                //Post post = new Post();
+                //post.UserName = user.UserName;
                 db.Posts.Add(Post);
                 db.SaveChanges();
 
@@ -53,7 +55,7 @@ namespace WebDev.Repository
                     image.PostId = Post.PostId;
                     image.Index = newImageIndex;
                     image.FileName = fileName;
-                    image.Name = Post.PostName;
+                    //image.Name = Post.PostName;
                     db.Images.Add(image);
                     
                     db.SaveChanges();
@@ -62,7 +64,7 @@ namespace WebDev.Repository
             else
             {
                 var dbEntity = db.Posts.Find(Post.PostId);
-                dbEntity.PostName = Post.PostName;
+                //dbEntity.PostName = Post.PostName;
                 dbEntity.Comment = Post.Comment;
                 //dbEntity.Images = Post.Images;
                 db.SaveChanges();
