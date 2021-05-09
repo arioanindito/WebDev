@@ -14,6 +14,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
 
 namespace WebDev
 {
@@ -39,7 +40,8 @@ namespace WebDev
                 options.AccessDeniedPath = "/accounts/login";
             });
             //services.AddIdentity<IdentityUser, IdentityRole>();
-            services.AddHttpContextAccessor();
+            //services.AddHttpContextAccessor();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

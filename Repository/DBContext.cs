@@ -5,64 +5,55 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Threading;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
 namespace WebDev.Repository
 {
     public class DBContext:DbContext
     {
-        public DBContext(DbContextOptions<DBContext> options) : base(options)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public DBContext(DbContextOptions<DBContext> options, IHttpContextAccessor httpContextAccessor) : base(options)
         {
-
+            _httpContextAccessor = httpContextAccessor;
         }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<User> Users { get; set; }
 
-        public override int SaveChanges(bool acceptAllChangesOnSuccess)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            OnBeforeSaving();
-            return base.SaveChanges(acceptAllChangesOnSuccess);
+            base.OnModelCreating(builder);
         }
 
-        public override async Task<int> SaveChangesAsync(
-           bool acceptAllChangesOnSuccess,
-           CancellationToken cancellationToken = default(CancellationToken)
-        )
+        public override int SaveChanges()
         {
-            OnBeforeSaving();
-            return (await base.SaveChangesAsync(acceptAllChangesOnSuccess,
-                          cancellationToken));
+            AddTimestamps();
+            return base.SaveChanges();
         }
 
-        private void OnBeforeSaving()
+        private void AddTimestamps()
         {
-            var entries = ChangeTracker.Entries();
-            var utcNow = DateTime.UtcNow;
+            var entities = ChangeTracker.Entries().Where(x => x.Entity is BaseEntity && (x.State == EntityState.Added || x.State == EntityState.Modified));
 
-            foreach (var entry in entries)
+            //var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var userId = _httpContextAccessor.HttpContext.User.Identity.Name;
+            //var user = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Email).Value;
+
+            var currentUsername = !string.IsNullOrEmpty(userId)
+                ? userId
+                : "Anonymous";
+
+            foreach (var entity in entities)
             {
-                // for entities that inherit from BaseEntity,
-                // set UpdatedOn / CreatedOn appropriately
-                if (entry.Entity is BaseEntity trackable)
+                if (entity.State == EntityState.Added)
                 {
-                    switch (entry.State)
-                    {
-                        case EntityState.Modified:
-                            // set the updated date to "now"
-                            trackable.UpdatedOn = utcNow;
-
-                            // mark property as "don't touch"
-                            // we don't want to update on a Modify operation
-                            entry.Property("CreatedOn").IsModified = false;
-                            break;
-
-                        case EntityState.Added:
-                            // set both updated and created date to "now"
-                            trackable.CreatedOn = utcNow;
-                            trackable.UpdatedOn = utcNow;
-                            break;
-                    }
+                    ((BaseEntity)entity.Entity).CreatedDate = DateTime.UtcNow;
+                    ((BaseEntity)entity.Entity).CreatedBy = currentUsername;
                 }
+
+                ((BaseEntity)entity.Entity).ModifiedDate = DateTime.UtcNow;
+                ((BaseEntity)entity.Entity).ModifiedBy = currentUsername;
             }
         }
     }
