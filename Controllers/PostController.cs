@@ -30,9 +30,17 @@ namespace WebDev.Controllers
         public IActionResult Index()
         {
             //ViewBag.username = _manager.GetUserName(HttpContext.User);
-            return View(_db.Posts.Include(a => a.Images)
-                //.Include(b => b.User)
-                .ToList());
+            //_db.Posts.OrderBy("PostId,-CreatedDate");
+
+            var ordered = _db.Posts.OrderByDescending(x => x.CreatedDate);
+            return View(ordered.Include(a => a.Images).ToList());
+
+            //return View(_db.Posts
+            //    .OrderBy(x => x.PostId)
+            //    .ThenByDescending(x => x.CreatedDate)
+            //    .Include(a => a.Images)
+            //    .ToList());
+
         }
         //[Authorize(Roles = "Admin")]
         [HttpGet]
