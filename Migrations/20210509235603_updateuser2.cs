@@ -7,6 +7,16 @@ namespace WebDev.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.RenameColumn(
+                name: "UserEmail",
+                table: "Users",
+                newName: "Email");
+
+            migrationBuilder.RenameColumn(
+                name: "UserName",
+                table: "Posts",
+                newName: "ModifiedBy");
+
+            migrationBuilder.RenameColumn(
                 name: "UpdatedOn",
                 table: "Posts",
                 newName: "ModifiedDate");
@@ -23,7 +33,7 @@ namespace WebDev.Migrations
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
-                name: "ModifiedBy",
+                name: "Email",
                 table: "Posts",
                 type: "nvarchar(max)",
                 nullable: true);
@@ -36,13 +46,23 @@ namespace WebDev.Migrations
                 table: "Posts");
 
             migrationBuilder.DropColumn(
-                name: "ModifiedBy",
+                name: "Email",
                 table: "Posts");
+
+            migrationBuilder.RenameColumn(
+                name: "Email",
+                table: "Users",
+                newName: "UserEmail");
 
             migrationBuilder.RenameColumn(
                 name: "ModifiedDate",
                 table: "Posts",
                 newName: "UpdatedOn");
+
+            migrationBuilder.RenameColumn(
+                name: "ModifiedBy",
+                table: "Posts",
+                newName: "UserName");
 
             migrationBuilder.RenameColumn(
                 name: "CreatedDate",

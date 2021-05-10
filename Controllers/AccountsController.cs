@@ -78,7 +78,8 @@ namespace WebDev.Controllers
 
             var identity = new ClaimsIdentity(new[] {
                     new Claim(ClaimTypes.Name, user.UserName),
-                    new Claim(ClaimTypes.Role, user.Role.RoleName)
+                    new Claim(ClaimTypes.Role, user.Role.RoleName),
+                    new Claim(ClaimTypes.Email, user.Email)
                     }, CookieAuthenticationDefaults.AuthenticationScheme);
 
             var principal = new ClaimsPrincipal(identity);

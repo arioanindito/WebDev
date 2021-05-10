@@ -38,11 +38,16 @@ namespace WebDev.Repository
 
             //var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var userId = _httpContextAccessor.HttpContext.User.Identity.Name;
-            //var user = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Email).Value;
 
             var currentUsername = !string.IsNullOrEmpty(userId)
                 ? userId
                 : "Anonymous";
+
+            var email = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Email);
+
+            var value = !string.IsNullOrEmpty(email)
+                ? email
+                : "Anonym";
 
             foreach (var entity in entities)
             {
@@ -50,10 +55,14 @@ namespace WebDev.Repository
                 {
                     ((BaseEntity)entity.Entity).CreatedDate = DateTime.UtcNow;
                     ((BaseEntity)entity.Entity).CreatedBy = currentUsername;
+                    ((BaseEntity)entity.Entity).Email = value;
+
                 }
 
                 ((BaseEntity)entity.Entity).ModifiedDate = DateTime.UtcNow;
                 ((BaseEntity)entity.Entity).ModifiedBy = currentUsername;
+                ((BaseEntity)entity.Entity).Email = value;
+
             }
         }
     }

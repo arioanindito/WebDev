@@ -20,5 +20,6 @@ namespace WebDev.Models
         [Column("ModifiedBy")]
         [Display(Name = "Modifier")]
         public string ModifiedBy { get; set; }
+        public string Email { get; set; }
     }
 }

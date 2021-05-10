@@ -10,7 +10,7 @@ using WebDev.Repository;
 namespace WebDev.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20210509115631_updateuser2")]
+    [Migration("20210509235603_updateuser2")]
     partial class updateuser2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -62,15 +62,15 @@ namespace WebDev.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("ModifiedBy");
 
                     b.Property<DateTime>("ModifiedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("PostId");
 
@@ -99,14 +99,14 @@ namespace WebDev.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
-
-                    b.Property<string>("UserEmail")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");

@@ -22,13 +22,12 @@
             @foreach (Post Post in Model)
             {
                 <tr>
-                    <td><p>
-
-
-
-
-
-</p>
+                    <td style="padding-bottom: 0px;">
+                        <div>
+                            <b>
+                                @Post.CreatedBy
+                            </b>
+                        </div>
                         @if (Post.Images.Any())
                         {
                             <a asp-action="Details" asp-route-id="@Post.PostId"><img src="Images/Get?PostId=@Post.PostId&fileName=@Post.Images.First().FileName" alt="~/Images/NotFound.png" width="300" height="300" /></a>
@@ -37,25 +36,23 @@
                         {
                             <img src="/images/notfound.png" alt="image not found" width="50" height="50">
                         }
+                        <div style="text-align:right; font-style:italic; font-size:10px">
+                            Posted on @Post.CreatedDate <br /> Author Email: @Post.Email
+                        </div>
                     </td>
                 </tr>
                 <tr>
-                    <td style="border-top:0px">
+                    <td style="border-top: 0px; padding-bottom: 0px; padding-top: 0px;">
                         <b>
                             @Html.DisplayNameFor(model => model.Comment)
                         </b>
                     </td>
                 </tr>
                 <tr>
-                    <td style="border-top:0px">
+                    <td style="border-top: 0px; padding-top: 0px;">
                         @Post.Comment
-                        <p>
-
-
-                        </p>
-                        <div style="text-align:right; font-style:italic; font-size:10px">
-                            Posted on @Post.CreatedDate <br />by @Post.CreatedBy
-                        </div>
+                        <br />
+                        <br />
                     </td>
                 </tr>
             }

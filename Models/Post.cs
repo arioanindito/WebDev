@@ -22,7 +22,6 @@ namespace WebDev.Models
         //[ForeignKey("User")]
         //public int UserId { get; set; }
         //public User User { get; set; }
-        public string UserName { get; set; }
 
         public ICollection<Image> Images { get; set; }
     }
