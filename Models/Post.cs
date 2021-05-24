@@ -18,11 +18,6 @@ namespace WebDev.Models
         public int PostId { get; set; }
         [Required(ErrorMessage = "Comment is Required!")]
         public string Comment { get; set; }
-        //[Required]
-        //[ForeignKey("User")]
-        //public int UserId { get; set; }
-        //public User User { get; set; }
-
         public ICollection<Image> Images { get; set; }
     }
 }

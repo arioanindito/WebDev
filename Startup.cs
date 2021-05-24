@@ -39,8 +39,6 @@ namespace WebDev
                 options.LoginPath = "/accounts/login";
                 options.AccessDeniedPath = "/accounts/login";
             });
-            //services.AddIdentity<IdentityUser, IdentityRole>();
-            //services.AddHttpContextAccessor();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 

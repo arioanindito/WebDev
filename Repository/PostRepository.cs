@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Microsoft.Extensions.Hosting;
 
 namespace WebDev.Repository
 {
@@ -14,10 +15,12 @@ namespace WebDev.Repository
     {
         private DBContext db;
         private IConfiguration _configuration;
-        public PostRepository(DBContext _db, IConfiguration configuration)
+        private readonly IHostEnvironment hostingEnvironment;
+        public PostRepository(DBContext _db, IConfiguration configuration,IHostEnvironment environment)
         {
             db = _db;
             _configuration = configuration;
+            hostingEnvironment = environment;
         }
 
         public IEnumerable<Post> GetPosts => db.Posts;
@@ -26,14 +29,15 @@ namespace WebDev.Repository
         {
             if (Post.PostId == 0)
             {
-                //Post post = new Post();
-                //post.UserName = user.UserName;
                 db.Posts.Add(Post);
                 db.SaveChanges();
 
                 if (photo != null)
                 {
-                    string imagesPath = _configuration.GetValue<string>("PostPhotoLocation");
+                    //string imagesPath = _configuration.GetValue<string>("PostPhotoLocation");
+                    //src="Images/Get?PostId=@Post.PostId&fileName=@Post.Images.First().FileName"
+
+                    var imagesPath = Path.Combine(hostingEnvironment.ContentRootPath, "wwwroot/Images");
 
                     int newImageIndex = 0;
 
@@ -55,7 +59,6 @@ namespace WebDev.Repository
                     image.PostId = Post.PostId;
                     image.Index = newImageIndex;
                     image.FileName = fileName;
-                    //image.Name = Post.PostName;
                     db.Images.Add(image);
                     
                     db.SaveChanges();
@@ -64,40 +67,8 @@ namespace WebDev.Repository
             else
             {
                 var dbEntity = db.Posts.Find(Post.PostId);
-                //dbEntity.PostName = Post.PostName;
                 dbEntity.Comment = Post.Comment;
-                //dbEntity.Images = Post.Images;
                 db.SaveChanges();
-
-                //if (photo != null)
-                //{
-                    //string imagesPath = _configuration.GetValue<string>("PostPhotoLocation");
-
-                    //int newImageIndex = 0;
-
-                    //string directoryPath = Path.Combine(imagesPath, Post.PostId.ToString());
-                    //if (!Directory.Exists(directoryPath))
-                    //{
-                    //    Directory.CreateDirectory(directoryPath);
-                    //}
-
-                    //string fileName = string.Format("{0}.jpg", Path.GetFileNameWithoutExtension(Path.GetRandomFileName()));
-                    //string filePath = Path.Combine(directoryPath, fileName);
-
-                    //using (Stream fileStream = new FileStream(filePath, FileMode.Create))
-                    //{
-                    //    photo.CopyTo(fileStream);
-                    //}
-
-                    //Image image = new Image();
-                    //image.PostId = Post.PostId;
-                    //image.Index = newImageIndex;
-                    //image.FileName = fileName;
-                    //image.Name = Post.PostName;
-                    //db.Images.Add(image);
-
-                    //db.SaveChanges();
-                //}
             }
         }
         public Post GetPost(int? ID)

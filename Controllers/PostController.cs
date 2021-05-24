@@ -15,32 +15,17 @@ namespace WebDev.Controllers
 {
     public class PostController : Controller
     {
-        //private readonly UserManager<User> _manager;
-        //private readonly UserManager<IdentityUser> _userManager;
         private readonly IPost _Post;
         private DBContext _db;
         public PostController(IPost Post, DBContext db)
-        //UserManager<User> manager
         {
             _Post = Post;
             _db = db;
-            //_manager = manager;
-            //_userManager = userManager;
         }
         public IActionResult Index()
         {
-            //ViewBag.username = _manager.GetUserName(HttpContext.User);
-            //_db.Posts.OrderBy("PostId,-CreatedDate");
-
             var ordered = _db.Posts.OrderByDescending(x => x.CreatedDate);
             return View(ordered.Include(a => a.Images).ToList());
-
-            //return View(_db.Posts
-            //    .OrderBy(x => x.PostId)
-            //    .ThenByDescending(x => x.CreatedDate)
-            //    .Include(a => a.Images)
-            //    .ToList());
-
         }
         //[Authorize(Roles = "Admin")]
         [HttpGet]
@@ -53,7 +38,6 @@ namespace WebDev.Controllers
         {
             if (ModelState.IsValid)
             {
-                //var user = await _userManager.GetUserAsync(HttpContext.User);
                 _Post.Add(model, photo);
                 return RedirectToAction("Index");
             }
@@ -91,14 +75,12 @@ namespace WebDev.Controllers
         {
             var model = _Post.GetPost(ID);
             return View(model);
-            //return View(model);
         }
         [HttpPost]
         public IActionResult Edit(Post model, IFormFile photo)
         {
             if (ModelState.IsValid)
             {
-                //var user = await _userManager.GetUserAsync(HttpContext.User);
                 _Post.Add(model, photo);
                 return RedirectToAction("Index");
             }

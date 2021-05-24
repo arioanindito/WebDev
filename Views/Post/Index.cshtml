@@ -30,7 +30,7 @@
                         </div>
                         @if (Post.Images.Any())
                         {
-                            <a asp-action="Details" asp-route-id="@Post.PostId"><img src="Images/Get?PostId=@Post.PostId&fileName=@Post.Images.First().FileName" alt="~/Images/NotFound.png" width="300" height="300" /></a>
+                            <a asp-action="Details" asp-route-id="@Post.PostId"><img src="/images/@Post.PostId/@Post.Images.First().FileName" alt="~/Images/NotFound.png" width="300" height="300" /></a>
                         }
                         else
                         {

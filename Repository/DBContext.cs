@@ -36,7 +36,6 @@ namespace WebDev.Repository
         {
             var entities = ChangeTracker.Entries().Where(x => x.Entity is BaseEntity && (x.State == EntityState.Added || x.State == EntityState.Modified));
 
-            //var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var userId = _httpContextAccessor.HttpContext.User.Identity.Name;
 
             var currentUsername = !string.IsNullOrEmpty(userId)
@@ -56,7 +55,6 @@ namespace WebDev.Repository
                     ((BaseEntity)entity.Entity).CreatedDate = DateTime.UtcNow;
                     ((BaseEntity)entity.Entity).CreatedBy = currentUsername;
                     ((BaseEntity)entity.Entity).Email = value;
-
                 }
 
                 ((BaseEntity)entity.Entity).ModifiedDate = DateTime.UtcNow;
