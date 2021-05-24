@@ -43,7 +43,7 @@ namespace WebDev.Controllers
             }
             return View(model);
         }
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "admin, user")]
         [HttpGet]
         public IActionResult Delete(int? ID)
         {
@@ -69,7 +69,7 @@ namespace WebDev.Controllers
         {
             return View(_Post.GetPost(ID));
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "admin, user")]
         [HttpGet]
         public IActionResult Edit(int? ID)
         {
